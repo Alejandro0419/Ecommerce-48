@@ -59,5 +59,5 @@ export class UpdateUserDto {
 
   @ApiHideProperty()
   @IsEmpty()
-  isAdmin?: boolean;
+  role?: string;
 }
