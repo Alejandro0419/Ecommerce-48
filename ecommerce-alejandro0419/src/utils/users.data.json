@@ -1,0 +1,63 @@
+[
+    {
+      "name": "Super Admin",
+      "email": "sadmin@example.com",
+      "password": "SAdmin!123",
+      "confirmPassword": "SAdmin!123",
+      "address": "Ejemplo Street 123",
+      "phone": 123456789,
+      "country": "Colombia",
+      "city": "Medellin"
+    },
+    {
+      "name": "Juan Gomez",
+      "email": "juangomez@example.com",
+      "password": "aA1!23456",
+      "confirmPassword": "aA1!23456",
+      "address": "Ejemplo Street 123",
+      "phone": 123456789,
+      "country": "Colombia",
+      "city": "Medellin"
+    },
+    {
+      "name": "Maria Rodriguez",
+      "email": "mariarodriguez@example.com",
+      "password": "bB2@34567",
+      "confirmPassword": "bB2@34567",
+      "address": "Example Avenue 456",
+      "phone": 987654321,
+      "country": "Mexico",
+      "city": "Mexico City"
+    },
+    {
+      "name": "Pedro Martinez",
+      "email": "pedromartinez@example.com",
+      "password": "cC3#45678",
+      "confirmPassword": "cC3#45678",
+      "address": "Ejemplo Calle 789",
+      "phone": 456789123,
+      "country": "Argentina",
+      "city": "Buenos Aires"
+    },
+    {
+      "name": "Ana Lopez",
+      "email": "analopez@example.com",
+      "password": "dD4$56789",
+      "confirmPassword": "dD4$56789",
+      "address": "Example Road 321",
+      "phone": 789123456,
+      "country": "España",
+      "city": "Madrid"
+    },
+    {
+      "name": "Carlos Sanchez",
+      "email": "carlossanchez@example.com",
+      "password": "eE5%67890",
+      "confirmPassword": "eE5%67890",
+      "address": "Ejemplo Boulevard 654",
+      "phone": 321654987,
+      "country": "Chile",
+      "city": "Santiago"
+    }
+  ]
+  
