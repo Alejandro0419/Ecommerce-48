@@ -49,10 +49,5 @@ export class OrdersController {
     return this.ordersService.addOrder(order.userId, order.products);
   }
   
-  @HttpCode(200)
-  @Delete(':id')
-  deleteOrder( @Param('id', ParseUUIDPipe) id: string ) {
-    return this.ordersService.deleteOrder(id);
-  }
  
 }

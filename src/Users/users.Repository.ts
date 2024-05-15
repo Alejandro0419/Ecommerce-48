@@ -65,9 +65,18 @@ export class UsersRepository {
   }
 
   async deleteUser(id: string) {
-    const foundUser = await this.usersRepository.findOneBy({ id });
+    const foundUser = await this.usersRepository.findOne({ 
+      where: {id: id}, 
+      relations: {orders: true}
+    });
     if (!foundUser)
       throw new NotFoundException(`No se encontro el usuario con id ${id}`);
+
+    if(foundUser.orders.length !== 0) {
+      foundUser.orders = null;
+      await this.usersRepository.save(foundUser);
+    }
+
 
     this.usersRepository.delete({ id });
     return `Usuario con id ${id} borrado`;

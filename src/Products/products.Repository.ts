@@ -105,9 +105,20 @@ export class ProductsRepository {
   }
 
   async deleteProduct(id: string) {
-    const foundProduct = await this.productsRepository.findOneBy({ id });
-    if (!foundProduct) {
-      throw new NotFoundException(`No se encontro el producto con id ${id}`);
+    const foundProduct = await this.productsRepository.findOne({ 
+      where:{ id },
+      relations: {
+        category: true
+      }
+     });
+
+     if (!foundProduct) {
+       throw new NotFoundException(`No se encontro el producto con id ${id}`);
+     }
+
+    if(foundProduct.category){
+      foundProduct.category = null;
+      await this.productsRepository.save(foundProduct);
     }
     this.productsRepository.delete(id);
     return `Producto con id ${id} eliminado`;
