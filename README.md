@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="" target="blank"><img src="https://res.cloudinary.com/dx1wpkw1x/image/upload/v1725235334/ecommerce_q4pqfq.webp" width="200" alt="Page display" /></a>
+  <a href="" target="blank"><img src="https://res.cloudinary.com/dx1wpkw1x/image/upload/v1725235334/ecommerce_q4pqfq.webp" width="500" alt="Page display" /></a>
 </p>
 
 ## Description
