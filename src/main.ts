@@ -9,8 +9,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Ecommerce API - WEBFT 48 - Modulo 4 Backend')
-    .setDescription('Backend de Ecommerce realizado durante el modulo 4 Fullstack epecializacion backend realizado por Alejandro Campaya')
+    .setTitle('Ecommerce API - Backend Docs')
+    .setDescription('API for multi-purpose virtual store. Display the details of each endpoint for testing. Proyect made entirely by Alejandro Campaya')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

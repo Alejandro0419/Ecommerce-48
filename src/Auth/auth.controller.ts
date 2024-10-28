@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto, LoginUserDto } from '../Users/userDto/users.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
 
 @ApiTags('Auth')
@@ -18,6 +18,11 @@ export class AuthController {
 
   @HttpCode(201)
   @Post('signin')
+  @ApiOperation({
+    summary: 'Create a new user.',
+    description:
+      'Expects all of the properties of the user through the Body. Returns the created User object.',
+  })
   signIn(@Body() signInData: LoginUserDto) {
     return this.authService.signIn(signInData);
   }
