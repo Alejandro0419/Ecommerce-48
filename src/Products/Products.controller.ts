@@ -30,6 +30,7 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
+  ApiOperation,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
@@ -46,6 +47,11 @@ export class ProductsController {
 
   @HttpCode(201)
   @Post('/files/uploadImage/:id')
+  @ApiOperation({
+    summary: 'Upload the image of a product found by Id.',
+    description:
+      'Expects the product Id and the image to upload. Returns the created User object.',
+  })
   @ApiBearerAuth()
   @Roles(Role.SuperAdmin, Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)

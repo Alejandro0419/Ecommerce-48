@@ -19,9 +19,9 @@ export class AuthController {
   @HttpCode(201)
   @Post('signin')
   @ApiOperation({
-    summary: 'Create a new user.',
+    summary: 'Logs in an existing user to create Token.',
     description:
-      'Expects all of the properties of the user through the Body. Returns the created User object.',
+      'Expects the credentials of the email and password, through the Body. Returns a status message, the token and the User object.',
   })
   signIn(@Body() signInData: LoginUserDto) {
     return this.authService.signIn(signInData);
@@ -29,6 +29,11 @@ export class AuthController {
 
   @HttpCode(201)
   @Post('signup')
+  @ApiOperation({
+    summary: 'Create a new user.',
+    description:
+      'Expects all of the properties of the user through the Body. Returns the created User object and a login token.',
+  })
   @UseInterceptors(DateAdderInterceptor)
   signUp(
     @Body() user: CreateUserDto,

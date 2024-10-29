@@ -18,7 +18,7 @@ import { AuthGuard } from '../Auth/guards/auth.guard';
 import { Role } from '../role.enum';
 import { Roles } from '../decorators/roles.decorator';
 import { RolesGuard } from '../Auth/guards/roles.guard';
-import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { UpdateUserDto } from './userDto/updateUsers.dto';
 import { User } from 'src/entities/users.entity';
 
@@ -29,6 +29,11 @@ export class UsersController {
 
   @HttpCode(200)
   @Get()
+  @ApiOperation({
+    summary: 'Get all users',
+    description:
+      'Doesn`t expect any parameters. Returns an array of User objects.',
+  })
   @ApiBearerAuth()
   @Roles(Role.Admin, Role.SuperAdmin)
   @UseGuards(AuthGuard, RolesGuard)
@@ -42,6 +47,11 @@ export class UsersController {
 
   @HttpCode(200)
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get a single user by Id',
+    description:
+      'Expects an UUID through Params. Returns a single User object.',
+  })
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async getUserById(@Param('id', ParseUUIDPipe) id: string, @Req() request:Request & {user: User}) {
@@ -61,6 +71,11 @@ export class UsersController {
 
   @HttpCode(200)
   @Put(':id')
+  @ApiOperation({
+    summary: 'Updates a user´s properties.',
+    description:
+      'Expects the UUID of the user to modify through Params and the properties to change through the Body. Returns the modified User object.',
+  })
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async updateUser(
@@ -83,6 +98,11 @@ export class UsersController {
 
   @HttpCode(200)
   @Delete(':id')
+  @ApiOperation({
+    summary: 'Deletes a user.',
+    description:
+      'Expects the UUID of the user to delete through Params. Returns a succes or failure message.',
+  })
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async deleteUser(@Param('id', ParseUUIDPipe) id: string, @Req() request:Request & {user: User}) {
@@ -100,14 +120,14 @@ export class UsersController {
     }
   }
 
-  @HttpCode(200)
+/*   @HttpCode(200)
   @Put('setAdmin/:id')
   @ApiBearerAuth()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.SuperAdmin)
   setAdmin(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.setAdmin(id);
-  }
+  } */
 
 /*   @HttpCode(200)
   @Get('seeder')
