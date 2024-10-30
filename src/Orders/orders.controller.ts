@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './ordersDto/orders.dto';
-import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/Auth/guards/auth.guard';
 import { RolesGuard } from 'src/Auth/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
@@ -27,12 +27,23 @@ export class OrdersController {
 
   @HttpCode(200)
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get a single order by Id',
+    description:
+      'Expects an UUID through Params. Returns a single Order object.',
+  })
   getOrderById(@Param('id', ParseUUIDPipe) id: string) {
     return this.ordersService.getOrder(id);
   }
 
   @HttpCode(200)
   @Get()
+  @ApiOperation({
+    summary: 'Get all orders',
+    description:
+      'Doesn`t expect any parameters. Returns an array of Order objects.',
+  })
+
   @Roles(Role.SuperAdmin, Role.Admin)
   @UseGuards( RolesGuard)
   @ApiQuery({ name: 'page', description: 'Página a mostrar', required: false })
@@ -45,6 +56,11 @@ export class OrdersController {
 
   @HttpCode(201)
   @Post()
+  @ApiOperation({
+    summary: 'Creates a new order',
+    description:
+      'Expects the User ID and an array of products id through the Body. Returns the created Order object.',
+  })
   addOrder(@Body() order: CreateOrderDto) {
     return this.ordersService.addOrder(order.userId, order.products);
   }

@@ -50,7 +50,7 @@ export class ProductsController {
   @ApiOperation({
     summary: 'Upload the image of a product found by Id.',
     description:
-      'Expects the product Id and the image to upload. Returns the created User object.',
+      'Expects the product Id and the image to upload. Returns the modified Product object.',
   })
   @ApiBearerAuth()
   @Roles(Role.SuperAdmin, Role.Admin)
@@ -95,12 +95,15 @@ export class ProductsController {
     return this.productsService.uploadProductImg(imgUrl, id);
   }
 
-
-
   @HttpCode(200)
   @Get()
+  @ApiOperation({
+    summary: 'Get all products',
+    description:
+      'Doesn`t expect any parameters. Returns an array of Product objects.',
+  })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
+  //@UseGuards(AuthGuard)
   @ApiQuery({ name: 'page', description: 'Página a mostrar', required: false })
   @ApiQuery({
     name: 'limit',
@@ -115,27 +118,43 @@ export class ProductsController {
 
   @HttpCode(200)
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get a single product by Id',
+    description:
+      'Expects an UUID through Params. Returns a single Product object.',
+  })
   @ApiBearerAuth()
   @Roles(Role.SuperAdmin, Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
   getProductById(@Param('id', ParseUUIDPipe) id: string) {
-    if(!id) throw new BadRequestException('Faltan datos');
+    if (!id) throw new BadRequestException('Faltan datos');
     return this.productsService.getProduct(id);
   }
 
   @HttpCode(201)
   @Post()
+  @ApiOperation({
+    summary: 'Creates a new product',
+    description:
+      'Expects the name, description, price, stock, category name and optional image through the Body. Returns the created Product object.',
+  })
   @ApiBearerAuth()
   @Roles(Role.SuperAdmin, Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
   addProduct(@Body() product: CreateProductDto) {
-    if (!product || Object.keys(product).length === 0) throw new BadRequestException('Faltan datos');
-    const {categoryName, ...productToSave} = product
+    if (!product || Object.keys(product).length === 0)
+      throw new BadRequestException('Faltan datos');
+    const { categoryName, ...productToSave } = product;
     return this.productsService.addProduct(productToSave, categoryName);
   }
 
   @HttpCode(200)
   @Put(':id')
+  @ApiOperation({
+    summary: 'Updates a product´s properties.',
+    description:
+      'Expects the UUID of the product to modify through Params and the properties to change through the Body. Returns the modified Product object.',
+  })
   @ApiBearerAuth()
   @Roles(Role.SuperAdmin, Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
@@ -143,12 +162,18 @@ export class ProductsController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() product: UpdateProductDto,
   ) {
-    if (!product || !id || Object.keys(product).length === 0) throw new BadRequestException('Faltan datos');
+    if (!product || !id || Object.keys(product).length === 0)
+      throw new BadRequestException('Faltan datos');
     return this.productsService.updateProduct(id, product);
   }
 
   @HttpCode(200)
   @Delete(':id')
+  @ApiOperation({
+    summary: 'Deletes a Product.',
+    description:
+      'Expects the UUID of the Product to delete through Params. Returns a succes or failure message.',
+  })
   @ApiBearerAuth()
   @Roles(Role.SuperAdmin, Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
@@ -156,8 +181,14 @@ export class ProductsController {
     return this.productsService.deleteProduct(id);
   }
 
+  /*   
   @HttpCode(200)
   @Get('seeder')
+  @ApiOperation({
+    summary: 'Seed Products',
+    description:
+      'Doesn´t expect any parameters. Returns a success message, an error message or an already seeded message.',
+  })
   @ApiBearerAuth()
   @Roles(Role.SuperAdmin, Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
@@ -165,7 +196,7 @@ export class ProductsController {
     return this.productsService.addProducts();
   }
   
-/*   @HttpCode(200)
+@HttpCode(200)
   @Delete('seeder')
   @ApiBearerAuth()
   @Roles(Role.SuperAdmin, Role.Admin)
@@ -173,5 +204,4 @@ export class ProductsController {
   deleteSeeder() {
     return this.productsService.deleteSeeder();
   } */
-
 }
